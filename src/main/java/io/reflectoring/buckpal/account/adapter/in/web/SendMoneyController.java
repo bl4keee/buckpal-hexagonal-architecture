@@ -18,15 +18,13 @@ class SendMoneyController {
 	private final SendMoneyUseCase sendMoneyUseCase;
 
 	@PostMapping(path = "/accounts/send/{sourceAccountId}/{targetAccountId}/{amount}")
-	void sendMoney(
-			@PathVariable("sourceAccountId") Long sourceAccountId,
-			@PathVariable("targetAccountId") Long targetAccountId,
-			@PathVariable("amount") Long amount) {
+	void sendMoney(@PathVariable("sourceAccountId") Long sourceAccountId,
+				   @PathVariable("targetAccountId") Long targetAccountId,
+				   @PathVariable("amount") Long amount) {
 
-		SendMoneyCommand command = new SendMoneyCommand(
-				new AccountId(sourceAccountId),
-				new AccountId(targetAccountId),
-				Money.of(amount));
+		SendMoneyCommand command = new SendMoneyCommand(new AccountId(sourceAccountId),
+														new AccountId(targetAccountId),
+														Money.of(amount));
 
 		sendMoneyUseCase.sendMoney(command);
 	}

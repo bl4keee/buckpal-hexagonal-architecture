@@ -31,12 +31,10 @@ public class SendMoneyService implements SendMoneyUseCase {
 		LocalDateTime baselineDate = LocalDateTime.now().minusDays(10);
 
 		Account sourceAccount = loadAccountPort.loadAccount(
-				command.getSourceAccountId(),
-				baselineDate);
+				command.getSourceAccountId(), baselineDate);
 
 		Account targetAccount = loadAccountPort.loadAccount(
-				command.getTargetAccountId(),
-				baselineDate);
+				command.getTargetAccountId(), baselineDate);
 
 		AccountId sourceAccountId = sourceAccount.getId()
 				.orElseThrow(() -> new IllegalStateException("expected source account ID not to be empty"));

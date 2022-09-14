@@ -15,7 +15,6 @@ class GetAccountBalanceService implements GetAccountBalanceQuery {
 
 	@Override
 	public Money getAccountBalance(AccountId accountId) {
-		return loadAccountPort.loadAccount(accountId, LocalDateTime.now())
-				.calculateBalance();
+		return loadAccountPort.loadAccount(accountId, LocalDateTime.now()).calculateBalance();
 	}
 }

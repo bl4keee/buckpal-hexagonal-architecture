@@ -15,13 +15,11 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @PersistenceAdapter
-class AccountPersistenceAdapter implements
-		LoadAccountPort,
-		UpdateAccountStatePort {
+class AccountPersistenceAdapter implements LoadAccountPort, UpdateAccountStatePort {
 
-	private final SpringDataAccountRepository accountRepository;
-	private final ActivityRepository activityRepository;
 	private final AccountMapper accountMapper;
+	private final ActivityRepository activityRepository;
+	private final SpringDataAccountRepository accountRepository;
 
 	@Override
 	public Account loadAccount(

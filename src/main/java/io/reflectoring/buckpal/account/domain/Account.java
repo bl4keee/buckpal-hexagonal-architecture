@@ -37,19 +37,14 @@ public class Account {
 	 * Creates an {@link Account} entity without an ID. Use to create a new entity that is not yet
 	 * persisted.
 	 */
-	public static Account withoutId(
-					Money baselineBalance,
-					ActivityWindow activityWindow) {
+	public static Account withoutId(Money baselineBalance, ActivityWindow activityWindow) {
 		return new Account(null, baselineBalance, activityWindow);
 	}
 
 	/**
 	 * Creates an {@link Account} entity with an ID. Use to reconstitute a persisted entity.
 	 */
-	public static Account withId(
-					AccountId accountId,
-					Money baselineBalance,
-					ActivityWindow activityWindow) {
+	public static Account withId(AccountId accountId, Money baselineBalance, ActivityWindow activityWindow) {
 		return new Account(accountId, baselineBalance, activityWindow);
 	}
 
@@ -61,9 +56,7 @@ public class Account {
 	 * Calculates the total balance of the account by adding the activity values to the baseline balance.
 	 */
 	public Money calculateBalance() {
-		return Money.add(
-				this.baselineBalance,
-				this.activityWindow.calculateBalance(this.id));
+		return Money.add(this.baselineBalance, this.activityWindow.calculateBalance(this.id));
 	}
 
 	/**
@@ -77,21 +70,14 @@ public class Account {
 			return false;
 		}
 
-		Activity withdrawal = new Activity(
-				this.id,
-				this.id,
-				targetAccountId,
-				LocalDateTime.now(),
-				money);
+		Activity withdrawal = new Activity(this.id, this.id, targetAccountId, LocalDateTime.now(), money);
+
 		this.activityWindow.addActivity(withdrawal);
 		return true;
 	}
 
 	private boolean mayWithdraw(Money money) {
-		return Money.add(
-				this.calculateBalance(),
-				money.negate())
-				.isPositiveOrZero();
+		return Money.add(this.calculateBalance(), money.negate()).isPositiveOrZero();
 	}
 
 	/**
@@ -100,12 +86,7 @@ public class Account {
 	 * @return true if the deposit was successful, false if not.
 	 */
 	public boolean deposit(Money money, AccountId sourceAccountId) {
-		Activity deposit = new Activity(
-				this.id,
-				sourceAccountId,
-				this.id,
-				LocalDateTime.now(),
-				money);
+		Activity deposit = new Activity(this.id, sourceAccountId, this.id, LocalDateTime.now(), money);
 		this.activityWindow.addActivity(deposit);
 		return true;
 	}
